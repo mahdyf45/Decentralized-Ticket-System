@@ -6,8 +6,8 @@ import contract from './TicketSmartContract.json';
 // Access our wallet inside of our dapp
 
 // This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
-const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));
-const smartContractAddress = "0x9D1442b3150bF6AbA6d9802760Fa5f798bA58649"
+const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
+const smartContractAddress = "0xC0B5BD5889AC9341fEb47253C2abfE3b67149432"
 const contractAbi = contract.abi
 // This is our smart contract Instance
 const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContractAddress);

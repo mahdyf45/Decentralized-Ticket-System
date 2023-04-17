@@ -10,11 +10,13 @@ import contract from './TicketSmartContract.json';
 // Access our wallet inside of our dapp
 
 // This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
-const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));
-const smartContractAddress = "0x9D1442b3150bF6AbA6d9802760Fa5f798bA58649"
+const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
+const smartContractAddress = "0xC0B5BD5889AC9341fEb47253C2abfE3b67149432"
 const contractAbi = contract.abi
 // This is our smart contract Instance
 const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContractAddress);
+
+
 
 function Create() {
 
@@ -26,8 +28,11 @@ function Create() {
     }
 
     const createEvent = async() => {
-      TicketCityContractInstance.methods.createEvent("hi", 0, 0, 2, 5).send({from: "0x2dEbC47198890E65b2478f295D8b68a0d0bE2A2f", gas: 100000, value: 40 });
-      //console.log("all Events: ", all_events)
+      const weiValue = web3.utils.toWei('0.000005', 'ether'); // Convert 0.0005 ether to wei      
+      
+      let event_created = await TicketCityContractInstance.methods.createEvent("hi", 2, 0, 0, 5).send({from: account});
+      console.log(event_created)
+
     }
 
     useEffect(() => {
