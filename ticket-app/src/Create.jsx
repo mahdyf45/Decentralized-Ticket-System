@@ -30,7 +30,7 @@ function Create() {
     const createEvent = async() => {
       const weiValue = web3.utils.toWei('0.000005', 'ether'); // Convert 0.0005 ether to wei      
       
-      let event_created = await TicketCityContractInstance.methods.createEvent("hi", 2, 0, 0, 5).send({from: account});
+      let event_created = await TicketCityContractInstance.methods.createEvent("hi", 2, 0, 0, 5).send({from: account, gas: 3000000, value: weiValue});
       console.log(event_created)
 
     }
