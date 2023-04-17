@@ -1,4 +1,4 @@
-import './App.css';
+import './css/App.css';
 import { useState } from 'react';
 import Web3 from "web3";
 import contract from './TicketSmartContract.json';
@@ -7,7 +7,7 @@ import contract from './TicketSmartContract.json';
 
 // This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));
-const smartContractAddress = "0xFa7F50A8f45d63c86a616a51993D5BaEa4c378c9"
+const smartContractAddress = "0x9D1442b3150bF6AbA6d9802760Fa5f798bA58649"
 const contractAbi = contract.abi
 // This is our smart contract Instance
 const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContractAddress);

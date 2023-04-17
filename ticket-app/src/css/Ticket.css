@@ -1,0 +1,39 @@
+.ticketbox {
+    background-color: #3b0067;
+    border-radius: 10px;
+    width: 45%;
+    height: 10rem;
+    margin-top: 1rem;
+    margin-left: 2rem;
+    box-shadow: 4px 4px 9px rgba(0, 0, 0, 0.25);
+}
+
+.eventbox {
+    background-color: #3b0067;
+    border-radius: 10px;
+    width: 45%;
+    height: 10rem;
+    margin-top: 1rem;
+    margin-left: 2rem;
+    box-shadow: 2px 4px 9px rgba(0, 0, 0, 0.25);
+}
+
+h5 {
+    font-family: "Poppins";
+    font-weight: 500;
+    font-size: 3vmin;
+    position: relative;
+    margin: auto;
+    left: 5%;
+    top: 5%;
+}
+
+h4 {
+    font-family: "Poppins";
+    font-weight: 100;
+    font-size: 2vmin;
+    position: relative;
+    margin: auto;
+    left: 5%;
+    top: 5%;
+}

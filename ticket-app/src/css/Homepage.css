@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Vampiro+One&display=swap");
+
+body {
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.textbox {
+  position: absolute;
+  display: grid;
+  grid-auto-flow: row;
+  width: 44%;
+  margin-top: 8vmin;
+}
+
+.navbar {
+  position: absolute; 
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 1rem;
+  width: 100%;
+  margin-top: 3vmin;
+}
+
+/*-----Text-----*/
+h1 {
+  font-family: "Vampiro One";
+  font-weight: 400;
+  font-size: 20vmin;
+  position: relative;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.573);
+  margin: auto;
+  letter-spacing: 1.5vmin;
+  top: 35%;
+}
+
+h2 {
+  font-family: "Vampiro One";
+  font-weight: 400;
+  font-size: 20vmin;
+  position: relative;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.573);
+  margin: auto;
+  letter-spacing: 1.5vmin;
+  left: 35%;
+}
+
+p {
+  font-family: "Poppins";
+  font-weight: 500;
+  letter-spacing: 0.2vmin;
+  font-size: 3vmin;
+  position: relative;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.285);
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  margin: auto;
+  max-width: 93%;
+  margin-top: 5vmin;
+  left: 8%;
+}
+
+/*-----Buttons-----*/
+.login {
+  font-family: "Poppins";
+  text-align: center;
+  background: linear-gradient(#4e018a, #6200ae);
+  margin-left: auto;
+  float: right;
+  margin-right: 2rem;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -webkit-transition: transform 200ms ease-in;
+  border-radius: 10px;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+  width: 25vmin;
+  height: 9vmin;
+  align-items: center;
+  border: transparent;
+  color: rgb(255, 255, 255);
+  font-weight: 400;
+  font-size: 3vmin;
+}
+
+.connect {
+  font-family: "Poppins";
+  text-align: center;
+  background: linear-gradient(#4e018a, #6200ae);
+  margin-left: auto;
+  float: right;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -webkit-transition: transform 200ms ease-in;
+  border-radius: 10px;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+  width: 25vmin;
+  height: 9vmin;
+  align-items: center;
+  border: transparent;
+  color: rgb(255, 255, 255);
+  font-weight: 400;
+  font-size: 3vmin;
+}
+
+/*-----Images------*/
+img#city {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+img#logo {
+  position: relative;
+  width: 27%;
+}
+
+/*-----Hover effects-----*/
+.login:hover {
+  transform: scaleY(1.08);
+  transform: scaleX(1.015);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+
