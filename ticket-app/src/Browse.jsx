@@ -1,10 +1,11 @@
-import './css/Event.css';
+import './css/Browse.css';
 import city from './city.svg';
 import logo from './logo.svg';
 import { useEffect, useState } from 'react';
 import React from 'react';
 import Web3 from "web3";
 import contract from './TicketSmartContract.json';
+import { useNavigate } from "react-router-dom";
 // Access our wallet inside of our dapp
 
 // This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
@@ -17,11 +18,19 @@ const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContr
 function Browse() {
 
     const [account, setAccount] = useState('');
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
 
     async function requestAccount() {
       const account = await window.ethereum.request({ method: 'eth_requestAccounts' });
       setAccount(account[0]);
+    }
+
+    function profileGo() {
+      navigate("/userhome");
+    }
+
+    function createGo() {
+      navigate("/create");
     }
 
     const viewAllEvents = async() => {
@@ -65,9 +74,9 @@ function Browse() {
             
             <div className = "navbar">
                 <a href = "/"><img src = {logo} className = "logo2" id = "logo2" alt = "ticketcity logo"></img></a>
-                <button className = "profile">Profile</button>
-                <button className = "browse" >Browse</button>
-                <button className = "create" >Create</button>
+                <button className = "profile" onClick = {profileGo}>Profile</button>
+                <button className = "browseb" >Browse</button>
+                <button className = "create" onClick = {createGo}>Create</button>
             </div>
 
             <div className = "profilebox">

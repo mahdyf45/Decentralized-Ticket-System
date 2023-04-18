@@ -17,6 +17,16 @@ const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContr
 function Tickets() {
 
     const [account, setAccount] = useState('');
+    var store = document.querySelector(':root');
+
+    function getz() {
+        var value = getComputedStyle(store);
+    }
+
+    function setz() {
+        store.style.setProperty('--z-index', '5');
+        store.style.setProperty('--z-index2', '6');
+    }
 
     async function requestAccount() {
       const account = await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -29,6 +39,8 @@ function Tickets() {
 
     const renderTickets = () => {
         var info_box = document.getElementById("info_box");
+        getz()
+        setz()
         if (info_box != null || undefined) {
             document.getElementById("info_box").innerHTML = "";
         }

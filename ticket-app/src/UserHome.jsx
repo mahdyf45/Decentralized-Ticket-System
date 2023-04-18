@@ -57,9 +57,10 @@ function UserHome() {
             </div>
 
             <div className = "profilebox">
-              <button className =  {`mytickets${open == 0? 'active' : 'inactive'}`} onClick = {() => setOpen('0')}>My Tickets</button>
-              <button className = {`myevents${open == 0? 'active' : 'inactive'}`} onClick = {() => {setOpen('1')}}>My Events</button>
-              <hr></hr>
+              <div className = "topbox">
+                <button className =  {`mytickets${open == 0? 'active' : 'inactive'}`} onClick = {() => setOpen('0')}>My Tickets</button>
+                <button className = {`myevents${open == 0? 'active' : 'inactive'}`} onClick = {() => {setOpen('1')}}>My Events</button>
+              </div>
               <div id='info_box'></div>
               <div id='info_box2'></div>
               {open == 1 && <Events />}

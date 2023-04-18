@@ -17,6 +17,16 @@ const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContr
 function Events() {
 
     const [account, setAccount] = useState('');
+    var store = document.querySelector(':root');
+
+    function getz() {
+        var value = getComputedStyle(store);
+    }
+
+    function setz() {
+        store.style.setProperty('--z-index', '6');
+        store.style.setProperty('--z-index2', '5');
+    }
 
     async function requestAccount() {
       const account = await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -34,6 +44,8 @@ function Events() {
 
     const renderEvents = () => {
         var info_box2 = document.getElementById("info_box2");
+        getz()
+        setz()
         if (info_box2 != null || undefined) {
             document.getElementById("info_box2").innerHTML = "";
         }
@@ -47,7 +59,7 @@ function Events() {
                 let openiningDiv = "<div id = 'eventbox'>";
                 let image = "<div id = 'row'>" + "<div id = 'eventImg'></div>";
                 let eventName = "<h5>"+"Event Name: " + resolved[i][0] + "</h5>" + "</div>";
-                let price = "<h4>"+"Ticket Price: " + resolved[i][8] + "</h4>";
+                let price = "<h4>"+"Ticket Price: " + resolved[i][8] + " ether</h4>";
                 let availableTickets = "<h4>"+"Available Tickets: " + resolved[i][3] + "</h4>";
                 let closingDiv = "</div>";
                 let event = openiningDiv + image + eventName + price + availableTickets + closingDiv;

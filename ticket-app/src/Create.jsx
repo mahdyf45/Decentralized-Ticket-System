@@ -1,5 +1,7 @@
 import city from './city.svg';
 import logo from './logo.svg';
+import ticket from './ticket.svg'
+import event from './event.svg'
 import { useEffect, useState } from 'react';
 import React from 'react';
 import './css/App.css';
@@ -31,12 +33,23 @@ function Create() {
       navigate("/userhome");
     }
 
+    function browseGo() {
+      navigate("/browse");
+    }
+
     const createEvent = async() => {
       const weiValue = web3.utils.toWei('0.000005', 'ether'); // Convert 0.0005 ether to wei      
-      
-      TicketCityContractInstance.methods.createEvent("hi", 2, 0, 0, 5).send({from: account, gas: 3000000})
+      var nameVal = document.getElementById("event_name").value;
+      console.log(nameVal)
+      var amountVal = document.getElementById("amount").value;
+      console.log(amountVal)
+      var priceVal = document.getElementById("price").value;
+      console.log(priceVal)
+
+      TicketCityContractInstance.methods.createEvent(nameVal, parseInt(amountVal), 0, 0, parseInt(priceVal)).send({from: account, gas: 3000000})
       .once('receipt', (receipt) => {
         console.log(receipt)
+        navigate("/userhome");
       })
 
     }
@@ -55,21 +68,27 @@ function Create() {
             <div className = "navbar">
               <a href = "/"><img src = {logo} className = "logo2" id = "logo2" alt = "ticketcity logo"></img></a>
               <button className = "profile" onClick = {profileGo}>Profile</button>
-              <button className = "browse">Browse</button>
+              <button className = "browse" onClick = {browseGo}>Browse</button>
               <button className = "createb">Create</button>
             </div>
 
             <div className = "profilebox">
               <div className = "formdiv">
-              <h7>Create an Event Below!</h7>
-              <form onClick = {createEvent}>
+
+              <div className = "header">
+                <img src = {event} className = "ticket-header" id = "ticket-header" alt = "ticket image"></img>
+                <img src = {ticket} className = "ticket-header" id = "ticket-header" alt = "ticket image"></img><h7>Let's Party!</h7>
+                <img src = {event} className = "ticket-header" id = "ticket-header" alt = "ticket image"></img>
+                <img src = {ticket} className = "ticket-header" id = "ticket-header" alt = "ticket image"></img>
+              </div>
+              <form>
 
                   <div className = "row">
                     <div className = "col-25">
                       <label htmlFor = "text">Event Name:</label>
                     </div>
                     <div className = "col-75">
-                      <input type="text" placeholder="Event name.."></input>
+                      <input id = "event_name" type="text" placeholder="Event name.."></input>
                     </div>
                   </div>
 
@@ -78,7 +97,7 @@ function Create() {
                       <label htmlFor = "tname">Amount of Tickets:</label>
                     </div>
                     <div className = "col-75">
-                      <input type="number" placeholder="Amount of Tickets.."></input>
+                      <input id = "amount" type="number" placeholder="Amount of Tickets.."></input>
                     </div>
                   </div>
                     
@@ -87,11 +106,11 @@ function Create() {
                       <label htmlFor = "tname">Price of Tickets:</label>
                     </div>
                     <div className = "col-75">
-                      <input type = "number" placeholder="Price of Tickets.."></input>
+                      <input id = "price" type = "number" placeholder="Price of Tickets.."></input>
                     </div>
                   </div>
                 
-                  <input type = "submit" value = "Submit"></input>
+                  <input id = "submit" value = "Submit" onClick = {createEvent}></input>
                  
               </form>
               </div>

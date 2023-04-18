@@ -44,7 +44,7 @@ h3 {
   }
 
 /*-----Buttons-----*/
-.profileb {
+.profile {
     font-family: "Poppins";
     text-align: center;
     background: linear-gradient(#4e018a, #6200ae);
@@ -56,7 +56,7 @@ h3 {
     border-radius: 10px;
     padding-left: 0.2rem;
     padding-right: 0.2rem;
-    font-weight: 800;
+    font-weight: 400;
     width: 25vmin;
     height: 9vmin;
     align-items: center;
@@ -65,7 +65,7 @@ h3 {
     font-size: 3vmin;
 }
 
-.browse {
+.browseb {
     font-family: "Poppins";
     text-align: center;
     background: linear-gradient(#4e018a, #6200ae);
@@ -82,7 +82,7 @@ h3 {
     align-items: center;
     border: transparent;
     color: rgb(255, 255, 255);
-    font-weight: 400;
+    font-weight: 800;
     font-size: 3vmin;
 }
 
@@ -107,80 +107,6 @@ h3 {
     font-size: 3vmin;
 }
 
-.myticketsinactive {
-    cursor: pointer;
-    font-family: "Poppins";
-    text-align: center;
-    position: relative;
-    background: transparent;
-    -webkit-transition: transform 200ms ease-in;
-    width: 25vmin;
-    height: 9vmin;
-    align-items: center;
-    border: transparent;
-    color: rgb(255, 255, 255);
-    font-weight: 400;
-    font-size: 3vmin;
-}
-
-.myticketsactive {
-    cursor: pointer;
-    font-family: "Poppins";
-    text-align: center;
-    position: relative;
-    background: transparent;
-    width: 25vmin;
-    height: 8.7vmin;
-    align-items: center;
-    color: rgb(255, 255, 255);
-    font-weight: 600;
-    font-size: 3vmin;
-    border-bottom: 3.5px solid white; 
-    border-top: transparent;
-    border-left: transparent;
-    border-right: transparent;
-    text-decoration: none;
-    z-index: 2;
-}
-
-.myeventsactive {
-    cursor: pointer;
-    font-family: "Poppins";
-    text-align: center;
-    background: transparent;
-    position: relative;
-    -webkit-transition: transform 200ms ease-in;
-    width: 25vmin;
-    height: 9vmin;
-    align-items: center;
-    border: transparent;
-    color: rgb(255, 255, 255);
-    font-weight: 400;
-    font-size: 3vmin;
-}
-
-.myeventsinactive {
-    cursor: pointer;
-    font-family: "Poppins";
-    text-align: center;
-    background: transparent;
-    position: relative;
-    -webkit-transition: transform 200ms ease-in;
-    width: 25vmin;
-    height: 8.7vmin;
-    align-items: center;
-    border: transparent;
-    color: rgb(255, 255, 255);
-    font-weight: 600;
-    font-size: 3vmin;
-    border-bottom: 3.5px solid white; 
-    border-top: transparent;
-    border-left: transparent;
-    border-right: transparent;
-    text-decoration: none;
-    z-index: 2;
-}
-
 /*-----Images------*/
 img#city {
     position: absolute;
@@ -192,7 +118,7 @@ img#city {
     z-index: -1;
 }
   
-  img#logo2 {
+img#logo2 {
     position: relative;
     width: 35%;
 }
@@ -205,58 +131,18 @@ img#city {
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
-.browse:hover {
+.browseb:hover {
     transform: scaleY(1.08);
     transform: scaleX(1.015);
     cursor: pointer;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
-.profileb:hover {
+.profile:hover {
     transform: scaleY(1.08);
     transform: scaleX(1.015);
     cursor: pointer;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-}
-  
-.myticketsinactive:after {
-    z-index: 1;
-    content: '';
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 3px;
-    bottom: 0;
-    left: 0;
-    background-color: #ffffff;
-    transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
-}
-
-.myticketsinactive:hover:after {
-    z-index: 1;
-    transform: scaleX(1);
-    transform-origin: bottom left;
-}
-
-.myeventsactive:after {
-    z-index: 1;
-    content: '';
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 3px;
-    bottom: 0;
-    left: 0;
-    background-color: #ffffff;
-    transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
-}
-
-.myeventsactive:hover:after {
-    z-index: 1;
-    transform: scaleX(1);
-    transform-origin: bottom left;
 }
 
 /*--------Scrollbar----------*/
