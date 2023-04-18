@@ -14,21 +14,18 @@ const contractAbi = contract.abi
 // This is our smart contract Instance
 const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContractAddress);
 
-function Events() {
+function Browse() {
 
     const [account, setAccount] = useState('');
+    //const navigate = useNavigate();
 
     async function requestAccount() {
       const account = await window.ethereum.request({ method: 'eth_requestAccounts' });
       setAccount(account[0]);
     }
 
-    useEffect(() => {
-      requestAccount();
-    }, []);
-
-    const  viewMyEvents = async() => {
-        let all_events = await TicketCityContractInstance.methods.viewMyEvents(account).call()
+    const viewAllEvents = async() => {
+        let all_events = await TicketCityContractInstance.methods.viewAllEvents().call()
         return all_events;
     };
 
@@ -42,15 +39,15 @@ function Events() {
     const renderList = () => {
         const info_box = document.getElementById('info_box');
         let events = "";
-        const itemList =  viewMyEvents().then((resolved) => {
+        const itemList = viewAllEvents().then((resolved) => {
             for (let i = 0; i < resolved.length; i++){
                 let openiningDiv = "<div id = 'eventbox'>";
-                let image = "<div id = 'row'>" + "<div id = 'eventImg'></div>";
-                let eventName = "<h5>"+"Event Name: " + resolved[i][0] + "</h5>" + "</div>";
-                let price = "<h4>"+"Ticket Price: " + resolved[i][8] + "</h4>";
+                let eventName = "<h5>"+"Event Name: " + resolved[i][0] + "</h5>";
+                let price = "<h4>"+"Price: " + resolved[i][8] + "</h4>";
+                let seller = "<h4>"+"Seller: " + resolved[i][1] + "</h4>";
                 let availableTickets = "<h4>"+"Available Tickets: " + resolved[i][3] + "</h4>";
                 let closingDiv = "</div>";
-                let event = openiningDiv + image + eventName + price + availableTickets + closingDiv;
+                let event = openiningDiv + eventName + seller + price + availableTickets + closingDiv;
                 events += event;
             }
             console.log(events)
@@ -59,12 +56,32 @@ function Events() {
         );
     };
 
+    useEffect(() => {
+        requestAccount();
+    }, []);
+
     return (
-    <div>
-        {renderEvents()}
-        {renderList()}
-    </div>
+        <div className = "body">
+            
+            <div className = "navbar">
+                <a href = "/"><img src = {logo} className = "logo2" id = "logo2" alt = "ticketcity logo"></img></a>
+                <button className = "profile">Profile</button>
+                <button className = "browse" >Browse</button>
+                <button className = "create" >Create</button>
+            </div>
+
+            <div className = "profilebox">
+                <div>
+                    {renderEvents()}
+                    {renderList()}
+                </div>
+            </div>
+
+            <h3>Connected: {account}</h3>
+
+            <img src = {city} className = "city" id = "city" alt = "background of city"></img>
+        </div>
     );
 }
 
-export default Events;
+export default Browse;

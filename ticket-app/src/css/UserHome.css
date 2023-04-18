@@ -109,6 +109,7 @@ h3 {
 }
 
 .myticketsinactive {
+    cursor: pointer;
     font-family: "Poppins";
     text-align: center;
     position: relative;
@@ -124,6 +125,7 @@ h3 {
 }
 
 .myticketsactive {
+    cursor: pointer;
     font-family: "Poppins";
     text-align: center;
     position: relative;
@@ -143,6 +145,7 @@ h3 {
 }
 
 .myeventsactive {
+    cursor: pointer;
     font-family: "Poppins";
     text-align: center;
     background: transparent;
@@ -158,6 +161,7 @@ h3 {
 }
 
 .myeventsinactive {
+    cursor: pointer;
     font-family: "Poppins";
     text-align: center;
     background: transparent;
@@ -198,18 +202,21 @@ img#city {
 .create:hover {
     transform: scaleY(1.08);
     transform: scaleX(1.015);
+    cursor: pointer;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .browse:hover {
     transform: scaleY(1.08);
     transform: scaleX(1.015);
+    cursor: pointer;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .profileb:hover {
     transform: scaleY(1.08);
     transform: scaleX(1.015);
+    cursor: pointer;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
   
@@ -252,3 +259,28 @@ img#city {
     transform: scaleX(1);
     transform-origin: bottom left;
 }
+
+/*--------Scrollbar----------*/
+
+::-webkit-scrollbar {
+    width: 13px; /* Vertical */
+    height: 13px; /* Horizontal */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #3a006700;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: #3b0067
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    border-radius: 20px;
+    background: #2a004a;
+  }
+  
+  ::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }

@@ -6,32 +6,38 @@ import './css/App.css';
 import './css/Create.css';
 import Web3 from "web3";
 import contract from './TicketSmartContract.json';
+import { useNavigate } from "react-router-dom";
 
 // Access our wallet inside of our dapp
 
 // This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
 const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
-const smartContractAddress = "0xC0B5BD5889AC9341fEb47253C2abfE3b67149432"
+const smartContractAddress = "0xC9f4732a4F394514Cd0c4593E1E876BFC0817e7e"
 const contractAbi = contract.abi
 // This is our smart contract Instance
 const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContractAddress);
 
-
-
 function Create() {
 
     const [account, setAccount] = useState('');
+    const navigate = useNavigate();
 
     async function requestAccount() {
       const account = await window.ethereum.request({ method: 'eth_requestAccounts' });
       setAccount(account[0]);
     }
 
+    function profileGo() {
+      navigate("/userhome");
+    }
+
     const createEvent = async() => {
       const weiValue = web3.utils.toWei('0.000005', 'ether'); // Convert 0.0005 ether to wei      
       
-      let event_created = await TicketCityContractInstance.methods.createEvent("hi", 2, 0, 0, 5).send({from: account, gas: 3000000, value: weiValue});
-      console.log(event_created)
+      TicketCityContractInstance.methods.createEvent("hi", 2, 0, 0, 5).send({from: account, gas: 3000000})
+      .once('receipt', (receipt) => {
+        console.log(receipt)
+      })
 
     }
 
@@ -48,7 +54,7 @@ function Create() {
             
             <div className = "navbar">
               <a href = "/"><img src = {logo} className = "logo2" id = "logo2" alt = "ticketcity logo"></img></a>
-              <button className = "profile">Profile</button>
+              <button className = "profile" onClick = {profileGo}>Profile</button>
               <button className = "browse">Browse</button>
               <button className = "createb">Create</button>
             </div>

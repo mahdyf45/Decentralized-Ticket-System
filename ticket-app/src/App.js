@@ -7,7 +7,7 @@ import contract from './TicketSmartContract.json';
 
 // This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
 const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
-const smartContractAddress = "0xC0B5BD5889AC9341fEb47253C2abfE3b67149432"
+const smartContractAddress = "0xC9f4732a4F394514Cd0c4593E1E876BFC0817e7e"
 const contractAbi = contract.abi
 // This is our smart contract Instance
 const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContractAddress);

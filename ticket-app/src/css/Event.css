@@ -17,7 +17,7 @@
     transform: scaleY(1.08);
     transform: scaleX(1.015);
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-}
+}  
 
 h5 {
     font-family: "Poppins";
@@ -40,8 +40,8 @@ h4 {
     top: 5%;
 }
 
-#ticketImg {
-    background-image: url("../ticket.svg");
+#eventImg {
+    background-image: url("../event.svg");
     width: 500%;
     height: 200%;
     position: relative;

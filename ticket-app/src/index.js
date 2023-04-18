@@ -4,6 +4,7 @@ import './css/index.css';
 import Homepage from './Homepage';
 import UserHome from './UserHome';
 import Create from './Create';
+import Browse from './Browse';
 import {
   BrowserRouter as Router, Route, Routes
 } from 'react-router-dom';
@@ -17,6 +18,7 @@ root.render(
         <Route path= "" element={<Homepage />}></Route>
         <Route path= "/userhome" element={<UserHome />}></Route>
         <Route path= "/create" element={<Create />}></Route>
+        <Route path= "/browse" element={<Browse />}></Route>
       </Routes>
     </Router> 
   </React.StrictMode>
