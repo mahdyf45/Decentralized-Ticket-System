@@ -6,6 +6,7 @@ import Events from './Events.jsx';
 import React from 'react';
 import './css/App.css';
 import './css/UserHome.css';
+import Homepage from "./Homepage.jsx";
 import Web3 from "web3";
 import contract from './TicketSmartContract.json';
 import { useNavigate } from "react-router-dom";
@@ -42,8 +43,10 @@ function UserHome() {
       requestAccount();
     }, []);
 
-    if (account == '') {
-      return
+    if (account == "") {
+      return (
+        <Homepage/>
+      )
     }
     else {
       return (

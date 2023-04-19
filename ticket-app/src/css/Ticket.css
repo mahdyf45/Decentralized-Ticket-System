@@ -2,6 +2,32 @@
     --z-index2: 5;
 }
 
+#sell {
+    font-family: "Poppins";
+    text-align: center;
+    background: #3b0067;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    -webkit-transition: background-color 300ms ease-in;
+    border-radius: 10px;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+    position: relative;
+    margin-bottom: 2.1rem;
+    width: 25vmin;
+    height: 9vmin;
+    align-items: center;
+    border: transparent;
+    color: rgb(255, 255, 255);
+    font-weight: 400;
+    font-size: 3vmin;
+}
+
+#sell:hover {
+    cursor: pointer;
+    background-color: #2c004e;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
+
 #info_box2 {
     height: 86%;
     width: 100%;
@@ -10,9 +36,14 @@
     z-index: var(--z-index2);
 }
 
+#columntickets {
+    display: grid;
+    align-items: end;
+    grid-auto-flow: column;
+}
+
 /*-----Hover effects-----*/
 #eventbox:hover {
-    cursor: pointer;
     transform: scaleY(1.08);
     transform: scaleX(1.015);
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);

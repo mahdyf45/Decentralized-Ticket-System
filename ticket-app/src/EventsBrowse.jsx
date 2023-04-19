@@ -33,6 +33,7 @@ function EventsBrowse() {
         let events = "";
         const itemList = viewAllEvents().then((resolved) => {
             for (let i = 0; i < resolved.length; i++){
+                let rowDiv = "<div id = 'columntickets'>";
                 let openiningDiv = "<div id = 'eventbox'>";
                 let image = "<div id = 'row'>" + "<div id = 'eventImg'></div>";
                 let eventName = "<h5>"+"Event Name: " + resolved[i][0] + "</h5></div>";
@@ -40,7 +41,9 @@ function EventsBrowse() {
                 let seller = "<h4>"+"Seller: " + resolved[i][1] + "</h4>";
                 let availableTickets = "<h4>"+"Available Tickets: " + resolved[i][3] + "</h4>";
                 let closingDiv = "</div>";
-                let event = openiningDiv + image + eventName + seller + price + availableTickets + closingDiv;
+                let cRowDiv = "</div>";
+                let button = "<button id = 'sell' onClick = {location.href='/tickets/" + resolved[i][2] + "'}>Tickets</button>" ;
+                let event = rowDiv + openiningDiv + image + eventName + seller + price + availableTickets + closingDiv + button + cRowDiv;
                 events += event;
             }
             console.log(events)

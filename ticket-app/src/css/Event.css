@@ -15,7 +15,7 @@
     -webkit-transition: transform 200ms ease-in;
     border-radius: 10px;
     overflow: hidden;
-    width: 50%;
+    width: 80%;
     height: 10rem;
     margin-bottom: 2rem;
     margin-top: 2rem;
@@ -25,7 +25,6 @@
 
 /*-----Hover effects-----*/
 #eventbox:hover {
-    cursor: pointer;
     transform: scaleY(1.08);
     transform: scaleX(1.015);
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import './css/App.css';
 import './css/Create.css';
+import Homepage from "./Homepage.jsx";
 import Web3 from "web3";
 import contract from './TicketSmartContract.json';
 import { useNavigate } from "react-router-dom";
@@ -58,8 +59,11 @@ function Create() {
       requestAccount();
     }, []);
 
-    if (account == '') {
-      return
+
+    if (account == "") {
+      return (
+        <Homepage/>
+      )
     }
     else {
       return (

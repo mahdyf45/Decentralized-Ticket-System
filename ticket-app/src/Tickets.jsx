@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import Web3 from "web3";
 import contract from './TicketSmartContract.json';
+import { useNavigate } from "react-router-dom";
 // Access our wallet inside of our dapp
 
 // This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
@@ -17,6 +18,7 @@ const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContr
 function Tickets() {
 
     const [account, setAccount] = useState('');
+    const navigate = useNavigate();
     var store = document.querySelector(':root');
 
     function getz() {
@@ -56,6 +58,7 @@ function Tickets() {
         let events = "";
         const itemList = getAllUserTickets().then((resolved) => {
             for (let i = 0; i < resolved.length; i++){
+                let rowDiv = "<div id = 'columntickets'>";
                 let openiningDiv = "<div id = 'eventbox'>";
                 let image = "<div id = 'row'>" + "<div id = 'ticketImg'></div>";
                 let eventName = "<h5>"+"Event Name: " + resolved[i][0] + "</h5>" + "</div>";
@@ -63,7 +66,9 @@ function Tickets() {
                 let price = "<h4>"+"Ticket Price: " + resolved[i][2] + " ether</h4>";
                 let owner = "<h4>"+"Seller: " + resolved[i][3] + "</h4>";
                 let closingDiv = "</div>";
-                let event = openiningDiv + image + eventName + ticketNum + price + owner + closingDiv;
+                let cRowDiv = "</div>";
+                let button = "<button id = 'sell' onClick = {location.href='/sell/" + resolved[i][1] + "'}>Sell</button>" ;
+                let event = rowDiv + openiningDiv + image + eventName + ticketNum + price + owner + closingDiv + button + cRowDiv;
                 events += event;
             }
             console.log(events)
