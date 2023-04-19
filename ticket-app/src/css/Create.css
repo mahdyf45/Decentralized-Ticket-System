@@ -22,6 +22,7 @@ body {
   justify-content: space-evenly;
   align-items: center;
   justify-items: center;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.215);
 }
 
 h3 {

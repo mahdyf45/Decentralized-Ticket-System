@@ -1,10 +1,13 @@
 import './css/Browse.css';
 import city from './city.svg';
 import logo from './logo.svg';
+import ticket from './ticket.svg'
+import event from './event.svg'
 import { useEffect, useState } from 'react';
 import React from 'react';
 import Web3 from "web3";
 import contract from './TicketSmartContract.json';
+import EventsBrowse from './EventsBrowse';
 import { useNavigate } from "react-router-dom";
 // Access our wallet inside of our dapp
 
@@ -33,38 +36,6 @@ function Browse() {
       navigate("/create");
     }
 
-    const viewAllEvents = async() => {
-        let all_events = await TicketCityContractInstance.methods.viewAllEvents().call()
-        return all_events;
-    };
-
-    const renderEvents = () => {
-        var info_box2 = document.getElementById("info_box2");
-        if (info_box2 != null || undefined) {
-            document.getElementById("info_box2").innerHTML = "";
-        }
-    }
-      
-    const renderList = () => {
-        const info_box = document.getElementById('info_box');
-        let events = "";
-        const itemList = viewAllEvents().then((resolved) => {
-            for (let i = 0; i < resolved.length; i++){
-                let openiningDiv = "<div id = 'eventbox'>";
-                let eventName = "<h5>"+"Event Name: " + resolved[i][0] + "</h5>";
-                let price = "<h4>"+"Price: " + resolved[i][8] + "</h4>";
-                let seller = "<h4>"+"Seller: " + resolved[i][1] + "</h4>";
-                let availableTickets = "<h4>"+"Available Tickets: " + resolved[i][3] + "</h4>";
-                let closingDiv = "</div>";
-                let event = openiningDiv + eventName + seller + price + availableTickets + closingDiv;
-                events += event;
-            }
-            console.log(events)
-            info_box.innerHTML = events;
-        }
-        );
-    };
-
     useEffect(() => {
         requestAccount();
     }, []);
@@ -80,9 +51,16 @@ function Browse() {
             </div>
 
             <div className = "profilebox">
+                <div className = "header2">
+                    <img src = {event} className = "ticket-header" id = "ticket-header" alt = "ticket image"></img>
+                    <img src = {ticket} className = "ticket-header" id = "ticket-header" alt = "ticket image"></img><h7>Events</h7>
+                    <img src = {event} className = "ticket-header" id = "ticket-header" alt = "ticket image"></img>
+                    <img src = {ticket} className = "ticket-header" id = "ticket-header" alt = "ticket image"></img>
+                </div>
+
                 <div>
-                    {renderEvents()}
-                    {renderList()}
+                    <div id='info_box3'></div>
+                    <EventsBrowse />
                 </div>
             </div>
 
