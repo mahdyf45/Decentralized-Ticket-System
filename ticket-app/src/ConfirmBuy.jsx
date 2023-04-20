@@ -31,15 +31,21 @@ function Browse() {
       setAccount(account[0]);
     }
 
-    //function buyTicket(uint256 tokenID) public payable {
+    const viewTicketInfo = async() => {
+        let ticket = await TicketCityContractInstance.methods.viewTicketInfo(id).call()
+        return ticket;
+    }
+
     const buyTicket = async() => {
-        const weiValue = web3.utils.toWei('5', 'ether'); // Convert 0.0005 ether to wei   
-        console.log(weiValue)   
-        TicketCityContractInstance.methods.buyTicket(id).send({from: account, value: 5, gas: 3000000})
+        const ticketID = viewTicketInfo().then((resolved) => {  
+        console.log("hi", resolved[2])   
+        TicketCityContractInstance.methods.buyTicket(id).send({from: account, value: parseInt(resolved[2]), gas: 3000000})
         .once('receipt', (receipt) => {
             console.log(receipt)
             navigate("/userhome");
           })
+        }
+        );
     };
 
     function profileGo() {
@@ -85,9 +91,11 @@ function Browse() {
                         <img src = {ticket} className = "ticket-header" id = "ticket-header" alt = "ticket image"></img>
                     </div>
 
+                    <br></br><br></br><br></br><br></br>
+                    <h7>Are you sure you want to buy this ticket?</h7>
                     <form>
 
-                    <input id = "submit" value = "Submit" onClick = {buyTicket}></input>
+                    <input id = "submit" value = "Yes" onClick = {buyTicket}></input>
 
                     </form>
                     </div>

@@ -8,8 +8,10 @@ import React from 'react';
 import Web3 from "web3";
 import contract from './TicketSmartContract.json';
 import Homepage from "./Homepage.jsx";
-import EventsBrowse from './EventsBrowse';
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useParams } from "react-router-dom";
 // Access our wallet inside of our dapp
 
 // This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
@@ -23,6 +25,7 @@ function Browse() {
 
     const [account, setAccount] = useState('');
     const navigate = useNavigate();
+    const { id } = useParams()
 
     async function requestAccount() {
       const account = await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -31,7 +34,24 @@ function Browse() {
 
     //function sellTicket(uint256 sellingAmount, uint256 tokenID) onlyTicketOwner(tokenID) public payable 
     const sellTicket = async() => {
-        TicketCityContractInstance.methods.sellTicket(2, 1).send({from: account, gas: 3000000})
+
+        if (document.getElementById("new_price").value == "") {
+            toast.error("Please enter the price.",  {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              });
+          }
+
+        var priceVal = document.getElementById("new_price").value;
+        console.log(priceVal)
+
+        TicketCityContractInstance.methods.sellTicket(priceVal, id).send({from: account, gas: 3000000})
         .once('receipt', (receipt) => {
             console.log(receipt)
             navigate("/userhome");
@@ -88,7 +108,7 @@ function Browse() {
                         <label htmlFor = "tname">Ticket Price:</label>
                         </div>
                         <div className = "col-75">
-                        <input id = "amount" type="number" placeholder="Ticket Price.."></input>
+                        <input id = "new_price" type="number" placeholder="Ticket Price.."></input>
                         </div>
                     </div>
 
@@ -99,6 +119,7 @@ function Browse() {
                 </div>
 
                 <h3>Connected: {account}</h3>
+                <ToastContainer />
 
                 <img src = {city} className = "city" id = "city" alt = "background of city"></img>
             </div>
