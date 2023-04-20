@@ -10,6 +10,8 @@ import Homepage from "./Homepage.jsx";
 import Web3 from "web3";
 import contract from './TicketSmartContract.json';
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Access our wallet inside of our dapp
 
@@ -39,20 +41,56 @@ function Create() {
     }
 
     const createEvent = async() => {
-      const weiValue = web3.utils.toWei('0.000005', 'ether'); // Convert 0.0005 ether to wei      
+      const weiValue = web3.utils.toWei('0.000005', 'ether'); // Convert 0.0005 ether to wei    
+
+      if (document.getElementById("event_name").value == "") {
+        toast.error("Please enter a name for your event.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+      }
       var nameVal = document.getElementById("event_name").value;
-      console.log(nameVal)
+
+      if (document.getElementById("amount").value == "") {
+        toast.error("Please enter the amount of tickets for your event.",  {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+      }
       var amountVal = document.getElementById("amount").value;
-      console.log(amountVal)
+
+      if (document.getElementById("price").value == "") {
+        toast.error("Please enter the ticket price for your event.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+      }
       var priceVal = document.getElementById("price").value;
       console.log(priceVal)
 
       TicketCityContractInstance.methods.createEvent(nameVal, parseInt(amountVal), 0, 0, parseInt(priceVal)).send({from: account, gas: 3000000})
       .once('receipt', (receipt) => {
         console.log(receipt)
-        navigate("/userhome");
       })
-
+      navigate("/userhome");
     }
 
     useEffect(() => {
@@ -115,6 +153,7 @@ function Create() {
                   </div>
                 
                   <input id = "submit" value = "Submit" onClick = {createEvent}></input>
+                  <ToastContainer />
                  
               </form>
               </div>
