@@ -6,6 +6,7 @@ import React from 'react';
 import Web3 from "web3";
 import contract from './TicketSmartContract.json';
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 // Access our wallet inside of our dapp
 
 // This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
@@ -20,6 +21,7 @@ function Tickets() {
     const [account, setAccount] = useState('');
     const navigate = useNavigate();
     var store = document.querySelector(':root');
+    const { id } = useParams()
 
     function getz() {
         var value = getComputedStyle(store);
@@ -48,15 +50,15 @@ function Tickets() {
         }
     }
 
-    const getAllUserTickets = async() => {
-        let all_tickets = await TicketCityContractInstance.methods.getAllUserTickets(account).call()
+    const viewAllEventTickets = async() => {
+        let all_tickets = await TicketCityContractInstance.methods.viewAllEventTickets(id).call()
         return all_tickets;
     };
-      
+
     const renderList = () => {
         const info_box2 = document.getElementById('info_box2');
         let events = "";
-        const itemList = getAllUserTickets().then((resolved) => {
+        const itemList = viewAllEventTickets().then((resolved) => {
             for (let i = 0; i < resolved.length; i++){
                 let rowDiv = "<div id = 'columntickets'>";
                 let openiningDiv = "<div id = 'eventbox'>";
@@ -67,13 +69,12 @@ function Tickets() {
                 let owner = "<h4>"+"Seller: " + resolved[i][3] + "</h4>";
                 let closingDiv = "</div>";
                 let cRowDiv = "</div>";
-
-                // Already for sale so gray out button
+                
                 if (resolved[i][4] == true) {
-                    var button = "<button id = 'nosell'>Selling</button>" ;
+                    var button = "<button id = 'buy'>Buy</button>" ;
                 }
                 else {
-                    var button = "<button id = 'sell' onClick = {location.href='/sell/" + resolved[i][1] + "'}>Sell</button>" ;
+                    var button = "<button id = 'nobuy' onClick = {location.href='/buy/" + resolved[i][1] + "'}>Sold</button>" ;
                 }
                 let event = rowDiv + openiningDiv + image + eventName + ticketNum + price + owner + closingDiv + button + cRowDiv;
                 events += event;
