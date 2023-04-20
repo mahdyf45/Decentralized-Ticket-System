@@ -5,6 +5,8 @@ import logo from './logo.svg';
 import { useState } from 'react';
 import Web3 from "web3";
 import contract from './TicketSmartContract.json';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Access our wallet inside of our dapp
 

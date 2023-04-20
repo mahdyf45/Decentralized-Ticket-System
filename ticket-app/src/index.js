@@ -7,6 +7,7 @@ import Create from './Create';
 import Sell from './Sell';
 import Buy from './Buy';
 import Browse from './Browse';
+import ConfirmBuy from './ConfirmBuy';
 import {
   BrowserRouter as Router, Route, Routes
 } from 'react-router-dom';
@@ -23,6 +24,7 @@ root.render(
         <Route path= "/browse" element={<Browse />}></Route>
         <Route path= "/sell/:id" element={<Sell />}></Route>
         <Route path= "/tickets/:id" element={<Buy />}></Route>
+        <Route path= "/buy/:id" element={<ConfirmBuy />}></Route>
       </Routes>
     </Router> 
   </React.StrictMode>

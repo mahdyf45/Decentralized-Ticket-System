@@ -71,10 +71,10 @@ function Tickets() {
                 let cRowDiv = "</div>";
                 
                 if (resolved[i][4] == true) {
-                    var button = "<button id = 'buy'>Buy</button>" ;
+                    var button = "<button id = 'buy' onClick = {location.href='/buy/" + resolved[i][1] + "'}>Buy</button>" ;
                 }
                 else {
-                    var button = "<button id = 'nobuy' onClick = {location.href='/buy/" + resolved[i][1] + "'}>Sold</button>" ;
+                    var button = "<button id = 'nobuy'>Sold</button>" ;
                 }
                 let event = rowDiv + openiningDiv + image + eventName + ticketNum + price + owner + closingDiv + button + cRowDiv;
                 events += event;

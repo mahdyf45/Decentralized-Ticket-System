@@ -10,6 +10,8 @@ import Homepage from "./Homepage.jsx";
 import Web3 from "web3";
 import contract from './TicketSmartContract.json';
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Access our wallet inside of our dapp
 
@@ -25,6 +27,7 @@ function UserHome() {
     const [open, setOpen] = useState('0');
     const [account, setAccount] = useState('');
     const navigate = useNavigate();
+    const notify = () => toast("Wow so easy!");
 
     async function requestAccount() {
       const account = await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -51,7 +54,7 @@ function UserHome() {
     else {
       return (
           <div className = "body">
-            
+              
             <div className = "navbar">
               <a href = "/"><img src = {logo} className = "logo2" id = "logo2" alt = "ticketcity logo"></img></a>
               <button className = "profileb">Profile</button>
