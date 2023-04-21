@@ -27,7 +27,6 @@ function UserHome() {
     const [open, setOpen] = useState('0');
     const [account, setAccount] = useState('');
     const navigate = useNavigate();
-    const notify = () => toast("Wow so easy!");
 
     async function requestAccount() {
       const account = await window.ethereum.request({ method: 'eth_requestAccounts' });

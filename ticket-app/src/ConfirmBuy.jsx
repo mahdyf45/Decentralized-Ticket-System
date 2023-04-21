@@ -11,6 +11,9 @@ import Homepage from "./Homepage.jsx";
 import EventsBrowse from './EventsBrowse';
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // Access our wallet inside of our dapp
 
 // This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
@@ -41,8 +44,18 @@ function Browse() {
         console.log("hi", resolved[2])   
         TicketCityContractInstance.methods.buyTicket(id).send({from: account, value: parseInt(resolved[2]), gas: 3000000})
         .once('receipt', (receipt) => {
-            console.log(receipt)
             navigate("/userhome");
+          }).catch((err) => {
+            toast.error("Error purchasing ticket.", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
           })
         }
         );
@@ -96,6 +109,7 @@ function Browse() {
                     <form>
 
                     <input id = "submit" value = "Yes" onClick = {buyTicket}></input>
+                    <ToastContainer />
 
                     </form>
                     </div>

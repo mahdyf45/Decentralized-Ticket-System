@@ -59,6 +59,11 @@ function Tickets() {
         const info_box2 = document.getElementById('info_box2');
         let events = "";
         const itemList = viewAllEventTickets().then((resolved) => {
+            if (resolved.length == 0) {
+                let rowDiv = "<div><br></br><br></br><br></br><br>" + 
+                "<h7>There are no tickets for this event.</h7></div>";
+                events = rowDiv;
+            }
             for (let i = 0; i < resolved.length; i++){
                 let rowDiv = "<div id = 'columntickets'>";
                 let openiningDiv = "<div id = 'eventbox'>";
