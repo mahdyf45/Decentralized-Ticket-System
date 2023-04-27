@@ -48,10 +48,10 @@ module.exports = {
      network_id: "5777",       // Any network (default: none)
     },
     
-    ganacheNetwork: {
+    ganache: {
       host: "127.0.0.1",
       port: 7545,
-      network_id: "5777",   
+      network_id: 1337,   
     }
 
     // Another network with more advanced options...
