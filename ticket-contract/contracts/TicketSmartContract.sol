@@ -49,20 +49,12 @@ contract TicketSmartContract is ERC721URIStorage, Ownable {
 
     // A structure that will contain all of the Event/Organizers information:
     struct EventInfo {
-        // Event name
-        string eventName;
         // Event creator
         address eventCreatorAddress;
         // Event ID - This will be dependent on 'eventsCreated' state variable 
         uint256 eventID;
         // Number of tickets that are set to be available to buy [IF the number is set to -1 then that mean "UNLIMITED tickets]
         uint256 availableTickets;
-        // Number of tickets sold already
-        uint256 soldTickets;
-        // Max ticket price
-        uint256 maxTicketPrice;
-        // Min ticket price
-        uint256 minTicketPrice;
         // Is the event still available?
         bool isEventActive;
         // The price of the ticket
@@ -72,7 +64,7 @@ contract TicketSmartContract is ERC721URIStorage, Ownable {
     // Events
     event ticketForSale(address seller, uint256 amount);
     event ticketSold(address buyer, uint256 amountSold);
-    event eventCreated(string eventName, address eventOrganizer);
+    event eventCreated(address eventOrganizer);
 
     // This function will mint tickets based off of how many available tickets there are. It returns a list of tokenID's that will represent the NFTS being put up for 'sale'
     function mintTicket(address to, string memory tokenURI, uint256 eventID, uint256 availableTickets, uint256 ticketPrice, address owner) private onlyEventOrganzier(eventID){
@@ -110,11 +102,11 @@ contract TicketSmartContract is ERC721URIStorage, Ownable {
     }
 
     /** @dev anyone can Create an Event */
-    function createEvent(string memory eventName, uint256 availableTickets, uint256 maxTicketPrice, uint256 minTicketPrice, uint256 ticketPrice) public payable {
+    function createEvent(uint256 availableTickets, uint256 ticketPrice) public payable {
         // We increment the number of events that were created
         eventsCreated++;
         // Now we create the Event and add the appropriate info to all of the mappings/structs
-        EventInfo memory eventDetails = EventInfo(eventName, msg.sender, eventsCreated, availableTickets, 0, maxTicketPrice, minTicketPrice, true, ticketPrice);
+        EventInfo memory eventDetails = EventInfo(msg.sender, eventsCreated, availableTickets, true, ticketPrice);
         allEvents[eventsCreated] = eventDetails;
         allEventsArray.push(eventDetails);
         userEvents[msg.sender].push(eventDetails);
@@ -124,7 +116,7 @@ contract TicketSmartContract is ERC721URIStorage, Ownable {
         "https://gateway.pinata.cloud/ipfs/QmbwT4KbKVxmu3j8oyC6fBogUyrm5komhX4oM9yCEf5pvG?_gl=1*1ntohon*_ga*MmQ1YjA4MTUtYmMwNy00YTFkLTlhZGEtMGYyMzFmM2JlZDlh*_ga_5RMPXG14TE*MTY4MDQ1NDY5NS4xLjEuMTY4MDQ1NDgxMC42LjAuMA/", 
         eventsCreated, availableTickets, ticketPrice, msg.sender);
         // Emit event creation
-        emit eventCreated(eventName, msg.sender);
+        emit eventCreated(msg.sender);
 
     }
 
@@ -135,12 +127,14 @@ contract TicketSmartContract is ERC721URIStorage, Ownable {
         TicketInfo memory ticket = ticketNFTS[tokenID];
         require(ticket.isForSale, "This ticket is not for sale");
         require(msg.value == ticket.ticketPrice, "You must pay the amount that the ticket owner is selling this ticket for.");
-        require(msg.sender != ticket.owner);
+        require(msg.sender != ticket.owner, "You cannot buy your own ticket");
         address ticketOwner = ownerOf(tokenID);
         address payable sellerToPay = payable(ticketOwner);
         // Transfer the ticket from the previous owner to the new owner
+        // sellerToPay.transfer(msg.value);
+        (bool sent,) = sellerToPay.call{value: msg.value}("");
+        require(sent, "Failed to send Ether");
         ticketTransfer(ticketOwner, msg.sender, tokenID);
-        sellerToPay.transfer(msg.value);
         // Modify 'ticketNFT' to set 'isForSale' to False and 'owner' to msg.sender
         ticketNFTS[tokenID].isForSale = false;
         ticketNFTS[tokenID].owner = msg.sender;
@@ -165,7 +159,6 @@ contract TicketSmartContract is ERC721URIStorage, Ownable {
         // Update EventInfo if we buy from organizer
         if (ticketOwner == allEvents[ticket.eventID].eventCreatorAddress){
             allEvents[ticket.eventID].availableTickets--;
-            allEvents[ticket.eventID].soldTickets++;
         }
         // Emit ticket being sold
         emit ticketSold(msg.sender, ticket.ticketPrice);
@@ -215,13 +208,11 @@ contract TicketSmartContract is ERC721URIStorage, Ownable {
         return ticketNFTS[tokenID];
     }
 
-    function getEventDetails(uint256 eventID) public view returns(string memory, address, uint256, uint256, uint256,
-                                                                    uint256, uint256, bool, uint256) {
+    function getEventDetails(uint256 eventID) public view returns(address, uint256, uint256, bool, uint256) {
         require(eventID <= eventsCreated, "This event does not exist");                                                     
         EventInfo memory eventInformation = allEvents[eventID];
-        return (eventInformation.eventName, eventInformation.eventCreatorAddress, eventInformation.eventID,
-                eventInformation.availableTickets, eventInformation.soldTickets,
-                eventInformation.maxTicketPrice, eventInformation.minTicketPrice, eventInformation.isEventActive, eventInformation.ticketPrice);
+        return (eventInformation.eventCreatorAddress, eventInformation.eventID,
+                eventInformation.availableTickets, eventInformation.isEventActive, eventInformation.ticketPrice);
     }
     
     // This function will return all of the tickets that belong to a user
