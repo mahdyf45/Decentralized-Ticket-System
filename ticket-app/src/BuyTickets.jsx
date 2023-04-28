@@ -59,6 +59,15 @@ function Tickets() {
         }
     }
 
+    const getEventName = async(event_id) => {
+        const networkId = await web3.eth.net.getId();
+        const smartContractAddress = Contract.networks[networkId].address;
+        // This is our smart contract Instance
+        const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContractAddress);
+        let event_details = await TicketCityContractInstance.methods.getEventDetails(event_id).call();
+        return event_details[0];
+    }
+
     const viewAllEventTickets = async() => {
         const networkId = await web3.eth.net.getId();
         const smartContractAddress = Contract.networks[networkId].address;
@@ -78,29 +87,31 @@ function Tickets() {
                 events = rowDiv;
             }
             for (let i = 0; i < resolved.length; i++){
-                let rowDiv = "<div id = 'columntickets'>";
-                let openiningDiv = "<div id = 'eventbox'>";
-                let image = "<div id = 'row'>" + "<div id = 'ticketImg'></div>";
-                let eventName = "<h5>"+"Event Name: " + resolved[i][0] + "</h5>" + "</div>";
-                let ticketNum = "<h4>"+"Ticket ID: " + resolved[i][1] + "</h4>";
-                let price = "<h4>"+"Ticket Price: " + resolved[i][2] + " ether</h4>";
-                let owner = "<h4>"+"Seller: " + resolved[i][3] + "</h4>";
-                let closingDiv = "</div>";
-                let cRowDiv = "</div>";
-                
-                if (resolved[i][4] == true) {
-                    var button = "<button id = 'buy' onClick = {location.href='/buy/" + resolved[i][1] + "'}>Buy</button>" ;
-                }
-                else {
-                    var button = "<button id = 'nobuy'>Sold</button>" ;
-                }
-                let event = rowDiv + openiningDiv + image + eventName + ticketNum + price + owner + closingDiv + button + cRowDiv;
-                events += event;
+                const event_name = getEventName(resolved[i][0]).then((returnedEventName) => {  
+                    let rowDiv = "<div id = 'columntickets'>";
+                    let openiningDiv = "<div id = 'eventbox'>";
+                    let image = "<div id = 'row'>" + "<div id = 'ticketImg'></div>";
+                    let eventName = "<h5>"+"Event Name: " + returnedEventName + "</h5>" + "</div>";
+                    let ticketNum = "<h4>"+"Ticket ID: " + resolved[i][1] + "</h4>";
+                    let ticket_price_to_ether = web3.utils.fromWei(resolved[i][2], 'ether');
+                    console.log(ticket_price_to_ether)
+                    let price = "<h4>"+"Ticket Price: " + ticket_price_to_ether + " ether</h4>";
+                    let owner = "<h4>"+"Seller: " + resolved[i][3] + "</h4>";
+                    let closingDiv = "</div>";
+                    let cRowDiv = "</div>";
+                    
+                    if (resolved[i][4] == true) {
+                        var button = "<button id = 'buy' onClick = {location.href='/buy/" + resolved[i][1] + "'}>Buy</button>" ;
+                    }
+                    else {
+                        var button = "<button id = 'nobuy'>Sold</button>" ;
+                    }
+                    let event = rowDiv + openiningDiv + image + eventName + ticketNum + price + owner + closingDiv + button + cRowDiv;
+                    events += event;
+                    info_box2.innerHTML = events;
+                });
             }
-            console.log(events)
-            info_box2.innerHTML = events;
-        }
-        );
+        });
     };
 
     return (

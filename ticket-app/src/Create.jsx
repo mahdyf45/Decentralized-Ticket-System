@@ -49,8 +49,7 @@ function Create() {
       const networkId = await web3.eth.net.getId();
       const smartContractAddress = Contract.networks[networkId].address;
       // This is our smart contract Instance
-      const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContractAddress);
-      const weiValue = web3.utils.toWei('0.000005', 'ether'); // Convert 0.0005 ether to wei    
+      const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContractAddress); 
 
       if (document.getElementById("event_name").value == "") {
         toast.error("Please enter a name for your event.", {
@@ -94,8 +93,8 @@ function Create() {
       }
       var priceVal = document.getElementById("price").value;
       console.log(priceVal)
-
-      TicketCityContractInstance.methods.createEvent(nameVal, parseInt(amountVal), 0, 0, parseInt(priceVal)).send({from: account, gas: 3000000})
+      const weiValue = web3.utils.toWei(priceVal, 'ether'); // Convert 0.0005 ether to wei   
+      TicketCityContractInstance.methods.createEvent(nameVal, parseInt(amountVal), 0, 0, weiValue).send({from: account, gas: 3000000})
       .once('receipt', (receipt) => {
         console.log(receipt)
         navigate("/userhome");
@@ -158,7 +157,7 @@ function Create() {
                       <label htmlFor = "tname">Price of Tickets:</label>
                     </div>
                     <div className = "col-75">
-                      <input id = "price" type = "number" placeholder="Price of Tickets.."></input>
+                      <input id = "price" type = "number" placeholder="Price of Tickets in Ether.."></input>
                     </div>
                   </div>
                 

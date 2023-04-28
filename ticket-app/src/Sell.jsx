@@ -63,8 +63,8 @@ function Browse() {
 
         var priceVal = document.getElementById("new_price").value;
         console.log(priceVal)
-
-        TicketCityContractInstance.methods.sellTicket(priceVal, id).send({from: account, gas: 3000000})
+        const weiValue = web3.utils.toWei(priceVal, 'ether')
+        TicketCityContractInstance.methods.sellTicket(weiValue, id).send({from: account, gas: 3000000})
         .once('receipt', (receipt) => {
             console.log(receipt)
             navigate("/userhome");
@@ -121,7 +121,7 @@ function Browse() {
                         <label htmlFor = "tname">Ticket Price:</label>
                         </div>
                         <div className = "col-75">
-                        <input id = "new_price" type="number" placeholder="Ticket Price.."></input>
+                        <input id = "new_price" type="number" placeholder="Ticket Price in Ether.."></input>
                         </div>
                     </div>
 

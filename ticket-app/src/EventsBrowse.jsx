@@ -43,18 +43,20 @@ function EventsBrowse() {
         const info_box3 = document.getElementById('info_box3');
         let events = "";
         const itemList = viewAllEvents().then((resolved) => {
+            console.log(resolved)
             for (let i = 0; i < resolved.length; i++){
                 let rowDiv = "<div id = 'columntickets'>";
                 let openiningDiv = "<div id = 'eventbox'>";
                 let image = "<div id = 'row'>" + "<div id = 'eventImg'></div>";
                 let eventName = "<h5>"+"Event Name: " + resolved[i][0] + "</h5></div>";
-                let price = "<h4>"+"Price: " + resolved[i][8] + "</h4>";
+                let ticket_price_to_ether = web3.utils.fromWei(resolved[i][8], 'ether');
+                console.log(ticket_price_to_ether)
+                let price = "<h4>"+"Price: " + ticket_price_to_ether + " ether </h4>";
                 let seller = "<h4>"+"Seller: " + resolved[i][1] + "</h4>";
-                let availableTickets = "<h4>"+"Available Tickets: " + resolved[i][3] + "</h4>";
                 let closingDiv = "</div>";
                 let cRowDiv = "</div>";
                 let button = "<button id = 'sell' onClick = {location.href='/tickets/" + resolved[i][2] + "'}>Tickets</button>" ;
-                let event = rowDiv + openiningDiv + image + eventName + seller + price + availableTickets + closingDiv + button + cRowDiv;
+                let event = rowDiv + openiningDiv + image + eventName + seller + price + closingDiv + button + cRowDiv;
                 events += event;
             }
             console.log(events)

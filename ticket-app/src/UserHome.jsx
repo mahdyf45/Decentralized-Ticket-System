@@ -37,8 +37,8 @@ function UserHome() {
 
     async function getContractAddress() {
       const networkId = await web3.eth.net.getId();
-      setContractAddress(contractAbi.networks[networkId].address);
-      setTicketCityContractInstance(new web3.eth.Contract(contractAbi, contractAbi.networks[networkId].address));
+      setContractAddress(Contract.networks[networkId].address);
+      setTicketCityContractInstance(new web3.eth.Contract(contractAbi, Contract.networks[networkId].address));
     }
 
     async function requestAccount() {

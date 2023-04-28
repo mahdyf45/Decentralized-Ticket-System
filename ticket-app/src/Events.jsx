@@ -72,12 +72,12 @@ function Events() {
                 let openiningDiv = "<div id = 'eventbox'>";
                 let image = "<div id = 'row'>" + "<div id = 'eventImg'></div>";
                 let eventName = "<h5>"+"Event Name: " + resolved[i][0] + "</h5>" + "</div>";
-                let price = "<h4>"+"Ticket Price: " + resolved[i][8] + " ether</h4>";
-                let availableTickets = "<h4>"+"Available Tickets: " + resolved[i][3] + "</h4>";
+                let ticket_price_to_ether = web3.utils.fromWei(resolved[i][8], 'ether');
+                let price = "<h4>"+"Ticket Price: " + ticket_price_to_ether + " ether</h4>";
                 let closingDiv = "</div>"
                 let cRowDiv = "</div>";
                 let button = "<button id = 'sell' onClick = {location.href='/tickets/" + resolved[i][2] + "'}>Tickets</button>" ;
-                let event = rowDiv + openiningDiv + image + eventName + price + availableTickets + closingDiv + button + cRowDiv;
+                let event = rowDiv + openiningDiv + image + eventName + price + closingDiv + button + cRowDiv;
                 events += event;
             }
             console.log(events)

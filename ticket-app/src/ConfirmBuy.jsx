@@ -21,6 +21,7 @@ function Browse() {
     const [account, setAccount] = useState('');
     const navigate = useNavigate();
     const { id } = useParams()
+    console.log(id)
     // This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
     const url = "https://127.0.0.1:7545"
     const contractAbi = Contract.abi
@@ -41,12 +42,12 @@ function Browse() {
       setAccount(account[0]);
     }
 
-    const viewTicketInfo = async() => {
+    const viewTicketInfo = async(ticket_id) => {
         const networkId = await web3.eth.net.getId();
         const smartContractAddress = Contract.networks[networkId].address;
         // This is our smart contract Instance
         const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContractAddress);
-        let ticket = await TicketCityContractInstance.methods.viewTicketInfo(id).call()
+        let ticket = await TicketCityContractInstance.methods.viewTicketInfo(ticket_id).call()
         return ticket;
     }
 
@@ -55,13 +56,13 @@ function Browse() {
         const smartContractAddress = Contract.networks[networkId].address;
         // This is our smart contract Instance
         const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContractAddress);
-        const ticketID = viewTicketInfo().then((resolved) => {  
-        console.log("hi", resolved[2])   
-        TicketCityContractInstance.methods.buyTicket(id).send({from: account, value: parseInt(resolved[2]), gas: 3000000})
-        .once('receipt', (receipt) => {
-            navigate("/userhome");
-          }).catch((err) => {
-            toast.error("Error purchasing ticket.", {
+        const ticketID = viewTicketInfo(id).then((resolved) => { 
+          TicketCityContractInstance.methods.buyTicket(id).send({from: account, value: resolved[2], gas: 3000000})
+          .once('receipt', (receipt) => {
+              navigate("/userhome");
+            }).catch((err) => {
+              console.log(err)
+              toast.error("Error purchasing ticket. You are either attempting to purchase a ticket that is yours, or you denied the signature request.", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
