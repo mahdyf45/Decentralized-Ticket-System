@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Contract from './TicketSmartContract.json'
+import { doc, collection, addDoc, getDoc, getDocs } from "firebase/firestore";
+import {db} from './firebase.js';
 // Access our wallet inside of our dapp
 
 function Create() {
@@ -35,6 +37,17 @@ function Create() {
     async function requestAccount() {
       const account = await window.ethereum.request({ method: 'eth_requestAccounts' });
       setAccount(account[0]);
+    }
+
+    async function addToDatabase(account, event_image, nameVal, amountVal) {
+      await addDoc(collection(db, "events"), {
+        event_details: {
+          Creator: account,
+          event_image: event_image,
+          event_name: nameVal,
+          tickets_made: amountVal
+        }
+      });
     }
 
     function profileGo() {
@@ -94,9 +107,17 @@ function Create() {
       var priceVal = document.getElementById("price").value;
       console.log(priceVal)
       const weiValue = web3.utils.toWei(priceVal, 'ether'); // Convert 0.0005 ether to wei   
+      
+      const querySnapshot = await getDocs(collection(db, "events"));
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+      });
+
       TicketCityContractInstance.methods.createEvent(nameVal, parseInt(amountVal), 0, 0, weiValue).send({from: account, gas: 3000000})
       .once('receipt', (receipt) => {
         console.log(receipt)
+        addToDatabase(account, "", nameVal, amountVal);
         navigate("/userhome");
       })
       
