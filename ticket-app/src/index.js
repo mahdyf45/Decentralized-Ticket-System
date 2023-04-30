@@ -11,6 +11,8 @@ import ConfirmBuy from './ConfirmBuy';
 import {
   BrowserRouter as Router, Route, Routes
 } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -27,6 +29,7 @@ root.render(
         <Route path= "/buy/:id" element={<ConfirmBuy />}></Route>
       </Routes>
     </Router> 
+    <ToastContainer />
   </React.StrictMode>
 
 );

@@ -68,6 +68,7 @@ function Browse() {
         .once('receipt', (receipt) => {
             console.log(receipt)
             navigate("/userhome");
+            toast.success("Ticket put up for sale successfully!");
           })
     };
 

@@ -60,6 +60,7 @@ function Browse() {
           TicketCityContractInstance.methods.buyTicket(id).send({from: account, value: resolved[2], gas: 3000000})
           .once('receipt', (receipt) => {
               navigate("/userhome");
+              toast.success("Ticket purchased successfully!");
             }).catch((err) => {
               console.log(err)
               toast.error("Error purchasing ticket. You are either attempting to purchase a ticket that is yours, or you denied the signature request.", {

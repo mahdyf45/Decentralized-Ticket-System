@@ -119,6 +119,7 @@ function Create() {
         console.log(receipt)
         addToDatabase(account, "", nameVal, amountVal);
         navigate("/userhome");
+        toast.success("Event created successfully!");
       })
       
     }
