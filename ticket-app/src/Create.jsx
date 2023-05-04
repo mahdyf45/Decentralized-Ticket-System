@@ -17,7 +17,6 @@ import {db} from './firebase.js';
 // Access our wallet inside of our dapp
 
 function Create() {
-
     const [account, setAccount] = useState('');
     const navigate = useNavigate();
     // This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
@@ -105,18 +104,10 @@ function Create() {
           });
       }
       var priceVal = document.getElementById("price").value;
-      console.log(priceVal)
       const weiValue = web3.utils.toWei(priceVal, 'ether'); // Convert 0.0005 ether to wei   
-      
-      const querySnapshot = await getDocs(collection(db, "events"));
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-      });
 
       TicketCityContractInstance.methods.createEvent(nameVal, parseInt(amountVal), 0, 0, weiValue).send({from: account, gas: 3000000})
       .once('receipt', (receipt) => {
-        console.log(receipt)
         addToDatabase(account, "", nameVal, amountVal);
         navigate("/userhome");
         toast.success("Event created successfully!");

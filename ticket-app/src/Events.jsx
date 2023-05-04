@@ -80,7 +80,6 @@ function Events() {
                 let event = rowDiv + openiningDiv + image + eventName + price + closingDiv + button + cRowDiv;
                 events += event;
             }
-            console.log(events)
             info_box.innerHTML = events;
         }
         );

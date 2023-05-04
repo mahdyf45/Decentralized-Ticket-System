@@ -3,7 +3,7 @@ import { getFirestore } from "firebase/firestore";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB_i-R7iomqHQ39KBm8-qx-I9b6GBBbh08",
+  apiKey: process.env.REACT_APP_DB_API_KEY,
   authDomain: "ticketcity-d947b.firebaseapp.com",
   projectId: "ticketcity-d947b",
   storageBucket: "ticketcity-d947b.appspot.com",

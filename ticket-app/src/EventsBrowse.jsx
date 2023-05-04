@@ -43,14 +43,12 @@ function EventsBrowse() {
         const info_box3 = document.getElementById('info_box3');
         let events = "";
         const itemList = viewAllEvents().then((resolved) => {
-            console.log(resolved)
             for (let i = 0; i < resolved.length; i++){
                 let rowDiv = "<div id = 'columntickets'>";
                 let openiningDiv = "<div id = 'eventbox'>";
                 let image = "<div id = 'row'>" + "<div id = 'eventImg'></div>";
                 let eventName = "<h5>"+"Event Name: " + resolved[i][0] + "</h5></div>";
                 let ticket_price_to_ether = web3.utils.fromWei(resolved[i][8], 'ether');
-                console.log(ticket_price_to_ether)
                 let price = "<h4>"+"Price: " + ticket_price_to_ether + " ether </h4>";
                 let seller = "<h4>"+"Seller: " + resolved[i][1] + "</h4>";
                 let closingDiv = "</div>";
@@ -59,7 +57,6 @@ function EventsBrowse() {
                 let event = rowDiv + openiningDiv + image + eventName + seller + price + closingDiv + button + cRowDiv;
                 events += event;
             }
-            console.log(events)
             info_box3.innerHTML = events;
         }
         );

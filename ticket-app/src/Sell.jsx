@@ -62,11 +62,11 @@ function Browse() {
           }
 
         var priceVal = document.getElementById("new_price").value;
-        console.log(priceVal)
+
         const weiValue = web3.utils.toWei(priceVal, 'ether')
         TicketCityContractInstance.methods.sellTicket(weiValue, id).send({from: account, gas: 3000000})
         .once('receipt', (receipt) => {
-            console.log(receipt)
+
             navigate("/userhome");
             toast.success("Ticket put up for sale successfully!");
           })

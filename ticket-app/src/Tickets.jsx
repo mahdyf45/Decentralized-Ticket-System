@@ -79,9 +79,7 @@ function Tickets() {
         const info_box2 = document.getElementById('info_box2');
         let events = "";
         const itemList = getAllUserTickets().then((resolved) => {
-            console.log(resolved)
             for (let i = 0; i < resolved.length; i++){
-                console.log(i)
                 const event_name = getEventName(resolved[i][0]).then((returnedEventName) => {
                     console.log(returnedEventName)
                     let rowDiv = "<div id = 'columntickets'>";

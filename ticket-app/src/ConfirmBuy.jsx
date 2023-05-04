@@ -21,7 +21,6 @@ function Browse() {
     const [account, setAccount] = useState('');
     const navigate = useNavigate();
     const { id } = useParams()
-    console.log(id)
     // This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
     const url = "https://127.0.0.1:7545"
     const contractAbi = Contract.abi
