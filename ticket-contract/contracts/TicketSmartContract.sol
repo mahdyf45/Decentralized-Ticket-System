@@ -93,7 +93,7 @@ contract TicketSmartContract is ERC721URIStorage, Ownable {
     }
 
     function _baseURI() internal pure override returns (string memory) {
-        return "https://gateway.pinata.cloud/ipfs/QmbwT4KbKVxmu3j8oyC6fBogUyrm5komhX4oM9yCEf5pvG?_gl=1*1ntohon*_ga*MmQ1YjA4MTUtYmMwNy00YTFkLTlhZGEtMGYyMzFmM2JlZDlh*_ga_5RMPXG14TE*MTY4MDQ1NDY5NS4xLjEuMTY4MDQ1NDgxMC42LjAuMA/";
+        return "https://ipfs.io/ipfs/QmWsGNpfuvG3gh4TbAW4ToP9RiMvwKf9NmbiUKLHV9zikY";
     }
 
     // Modifer to make sure ONLY the organizer can execute a specific function
@@ -121,7 +121,7 @@ contract TicketSmartContract is ERC721URIStorage, Ownable {
         // We create the tickets to be put up for sale, we mint each ticket
         // address to, string memory tokenURI, uint256 eventID, uint256 availableTickets, uint256 ticketPrice, address payable owner
         mintTicket(msg.sender, 
-        "https://gateway.pinata.cloud/ipfs/QmbwT4KbKVxmu3j8oyC6fBogUyrm5komhX4oM9yCEf5pvG?_gl=1*1ntohon*_ga*MmQ1YjA4MTUtYmMwNy00YTFkLTlhZGEtMGYyMzFmM2JlZDlh*_ga_5RMPXG14TE*MTY4MDQ1NDY5NS4xLjEuMTY4MDQ1NDgxMC42LjAuMA/", 
+        "ipfs://QmW6zxjpjqM4t1TiGaEsrN38aN7Uu4oXoNabQroANEQQJy", 
         eventsCreated, availableTickets, ticketPrice, msg.sender);
         // Emit event creation
         emit eventCreated(eventName, msg.sender);

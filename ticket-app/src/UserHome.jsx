@@ -8,25 +8,38 @@ import './css/App.css';
 import './css/UserHome.css';
 import Homepage from "./Homepage.jsx";
 import Web3 from "web3";
-import contract from './TicketSmartContract.json';
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Contract from './TicketSmartContract.json'
 
 // Access our wallet inside of our dapp
 
-// This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
-const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
-const smartContractAddress = "0xC9f4732a4F394514Cd0c4593E1E876BFC0817e7e"
-const contractAbi = contract.abi
-// This is our smart contract Instance
-const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContractAddress);
+
 
 function UserHome() {
 
     const [open, setOpen] = useState('0');
     const [account, setAccount] = useState('');
     const navigate = useNavigate();
+    const [contractAddress, setContractAddress] = useState('');
+    // This is our smart contract Instance
+    const [TicketCityContractInstance, setTicketCityContractInstance] = useState('');
+
+    // This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
+    const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
+    const contractAbi = Contract.abi;
+  
+    async function requestAccount() {
+      const account = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      setAccount(account[0]);
+    }
+
+    async function getContractAddress() {
+      const networkId = await web3.eth.net.getId();
+      setContractAddress(Contract.networks[networkId].address);
+      setTicketCityContractInstance(new web3.eth.Contract(contractAbi, Contract.networks[networkId].address));
+    }
 
     async function requestAccount() {
       const account = await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -43,6 +56,7 @@ function UserHome() {
   
     useEffect(() => {
       requestAccount();
+      getContractAddress();
     }, []);
 
     if (account == "") {

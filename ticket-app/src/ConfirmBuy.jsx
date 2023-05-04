@@ -6,7 +6,7 @@ import event from './event.svg'
 import { useEffect, useState } from 'react';
 import React from 'react';
 import Web3 from "web3";
-import contract from './TicketSmartContract.json';
+import Contract from './TicketSmartContract.json';
 import Homepage from "./Homepage.jsx";
 import EventsBrowse from './EventsBrowse';
 import { useNavigate } from "react-router-dom";
@@ -16,37 +16,53 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // Access our wallet inside of our dapp
 
-// This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
-const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
-const smartContractAddress = "0xC9f4732a4F394514Cd0c4593E1E876BFC0817e7e"
-const contractAbi = contract.abi
-// This is our smart contract Instance
-const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContractAddress);
-
 function Browse() {
 
     const [account, setAccount] = useState('');
     const navigate = useNavigate();
     const { id } = useParams()
+    // This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
+    const url = "https://127.0.0.1:7545"
+    const contractAbi = Contract.abi
+    let web3Provider = null;
+
+    // Is there an Injected web3 instance?
+    if (typeof Web3 !== 'undefined') {
+      web3Provider = Web3.givenProvider;
+    } else {
+      // If there is no injected web3 instance is detected, fallback to TestRPC
+      web3Provider = new Web3(new Web3.providers.HttpProvider(url));
+    }
+    let web3 = new Web3(web3Provider)
+    
 
     async function requestAccount() {
       const account = await window.ethereum.request({ method: 'eth_requestAccounts' });
       setAccount(account[0]);
     }
 
-    const viewTicketInfo = async() => {
-        let ticket = await TicketCityContractInstance.methods.viewTicketInfo(id).call()
+    const viewTicketInfo = async(ticket_id) => {
+        const networkId = await web3.eth.net.getId();
+        const smartContractAddress = Contract.networks[networkId].address;
+        // This is our smart contract Instance
+        const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContractAddress);
+        let ticket = await TicketCityContractInstance.methods.viewTicketInfo(ticket_id).call()
         return ticket;
     }
 
     const buyTicket = async() => {
-        const ticketID = viewTicketInfo().then((resolved) => {  
-        console.log("hi", resolved[2])   
-        TicketCityContractInstance.methods.buyTicket(id).send({from: account, value: parseInt(resolved[2]), gas: 3000000})
-        .once('receipt', (receipt) => {
-            navigate("/userhome");
-          }).catch((err) => {
-            toast.error("Error purchasing ticket.", {
+        const networkId = await web3.eth.net.getId();
+        const smartContractAddress = Contract.networks[networkId].address;
+        // This is our smart contract Instance
+        const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContractAddress);
+        const ticketID = viewTicketInfo(id).then((resolved) => { 
+          TicketCityContractInstance.methods.buyTicket(id).send({from: account, value: resolved[2], gas: 3000000})
+          .once('receipt', (receipt) => {
+              navigate("/userhome");
+              toast.success("Ticket purchased successfully!");
+            }).catch((err) => {
+              console.log(err)
+              toast.error("Error purchasing ticket. You are either attempting to purchase a ticket that is yours, or you denied the signature request.", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,

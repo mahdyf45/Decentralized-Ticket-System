@@ -4,19 +4,9 @@ import city from './city.svg';
 import logo from './logo.svg';
 import { useState } from 'react';
 import Web3 from "web3";
-import contract from './TicketSmartContract.json';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-// Access our wallet inside of our dapp
-
-// This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
-const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
-const smartContractAddress = "0xC9f4732a4F394514Cd0c4593E1E876BFC0817e7e"
-const contractAbi = contract.abi
-// This is our smart contract Instance
-const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContractAddress);
-
+import Contract from './TicketSmartContract.json'
 
 function Homepage() {
 

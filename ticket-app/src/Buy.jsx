@@ -11,23 +11,30 @@ import './css/App.css';
 import './css/UserHome.css';
 import Homepage from "./Homepage.jsx";
 import Web3 from "web3";
-import contract from './TicketSmartContract.json';
+import Contract from './TicketSmartContract.json';
 import { useNavigate } from "react-router-dom";
 
 // Access our wallet inside of our dapp
-
-// This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
-const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
-const smartContractAddress = "0xC9f4732a4F394514Cd0c4593E1E876BFC0817e7e"
-const contractAbi = contract.abi
-// This is our smart contract Instance
-const TicketCityContractInstance = new web3.eth.Contract(contractAbi, smartContractAddress);
 
 function Buy() {
 
     const [open, setOpen] = useState('0');
     const [account, setAccount] = useState('');
     const navigate = useNavigate();
+    // This is FOR TESTING ON GANACHE ONLY - THIS WILL HAVE TO CHANGE WHEN DEPLOYING
+    const url = "https://127.0.0.1:7545"
+    const contractAbi = Contract.abi
+    let web3Provider = null;
+
+    // Is there an Injected web3 instance?
+    if (typeof Web3 !== 'undefined') {
+      web3Provider = Web3.givenProvider;
+    } else {
+      // If there is no injected web3 instance is detected, fallback to TestRPC
+      web3Provider = new Web3(new Web3.providers.HttpProvider(url));
+    }
+    let web3 = new Web3(web3Provider)
+    
 
     async function requestAccount() {
       const account = await window.ethereum.request({ method: 'eth_requestAccounts' });
