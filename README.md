@@ -78,7 +78,7 @@ In the project directory, follow the steps below to deploy the smart contract on
 6. Then, go to the file located at `../Decentralzied-Ticket-System/ticket-app/src/TicketSmartContract.json` and delete all of the contents within it (if any), and then `paste the contents you copied from ../Decentralzied-Ticket-System/ticket-contract/build/contracts/TicketSmartContract.json` into that file. Then save the file.
 
 7. Once you have copied over the contents from `../contract/TicketSmartContract.json` and `pasted
-in ticket-app/src/TicketSmartContract.json`, cd into the ../ticket-app` directory by opening up a 
+in ticket-app/src/TicketSmartContract.json`, cd into the `../ticket-app` directory by opening up a 
 new terminal in the `Decentralized-Ticket-System` directory and typing the command `cd ticket-app`.
 
 8. Follow the steps detailed in **'Start the application'** section to run the application
