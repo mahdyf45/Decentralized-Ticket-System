@@ -87,7 +87,7 @@ new terminal in the `Decentralized-Ticket-System` directory and typing the comma
 8. Follow the steps detailed in **'Start the application'** section to run the application
 
 ## Deploy TicketSmartContract to Sepolia
-In the project directory, follow the steps below to deploy the smart contract on the Goerli network.
+In the project directory, follow the steps below to deploy the smart contract on the Sepolia network.
 
 
 1. Enter ticket-contract directory by entering the following command in the terminal, `cd ticket-contract`
